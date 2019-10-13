@@ -1,0 +1,20 @@
+{
+  "1": {
+    "query": {
+      "author": "var"
+    },
+    "questions": {
+      "1": {
+        "Q": "what is the book written by Mike",
+        "variable": "mike",
+        "required_field": "book"
+      },
+      "2": {
+        "Q": "what is the book written by Ashika",
+        "variable": "ashika",
+        "required_field": "book"
+      }
+    }
+  }
+}
+
