@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<h2><b>YOU HAVE COMPLETED THIS QUIZ !!! </b></h2>
+    <p>You have scored : {{count}}</p><br>
+    {% if wrong %}
+        <p>The questions you have got wrong are : </p><br>
+
+        {% for i in wrong %}
+
+            <p>QUESTION : {{i[0]}}</p>
+            <p>YOUR ANS : {{i[2]}}</p>
+            <p>CORRECT ANS : {{i[1]}}</p><br>
+
+        {% endfor %}
+    {% endif %}
+    <form>
+        <button onclick="self.close()">Close</button>
+    </form>
+
+
+</body>
+</html>

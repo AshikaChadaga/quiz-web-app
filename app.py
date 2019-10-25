@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 from flask_pymongo import PyMongo
 
 CONFIG = {}
-WRONG_ANS = []
+WRONG_ANS =  []
 COUNT = 0
 DYNAMIC_HTML = "home.html"
 
@@ -14,7 +14,11 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def home_page():
-    return render_template(DYNAMIC_HTML) #, online_users=q)
+    global WRONG_ANS ,COUNT
+    WRONG_ANS = []
+    COUNT = 0
+    return render_template(DYNAMIC_HTML)
+
 
 @app.route("/", methods=['POST'])
 def evaluate():
@@ -22,10 +26,11 @@ def evaluate():
         validate(x[0], x[1])
     print("count - ", COUNT)
     print("wrong ans - ", WRONG_ANS)
-    return "works"
+    return render_template('end.html', count = COUNT , wrong = WRONG_ANS)
+
 
 def validate(key, value):
-    global WRONG_ANS, COUNT
+    global WRONG_ANS , COUNT
     keys = key.split("_")
     query = copy.deepcopy(CONFIG[keys[0]]["query"])
     var = CONFIG[keys[0]]["questions"][keys[1]]["variable"]
@@ -43,13 +48,15 @@ def validate(key, value):
             wrong = (question, x[req], value)
             WRONG_ANS = WRONG_ANS + [wrong]
 
+
+
 def generate_template(config):
     part_0 = '<html><head><style>h1{text-align:center;font-family: Orbitron;font-size: 300%;}</style></head><body><h1>QUIZ</h1>'
     part_1 = '<form method="post">'
     part_2 = '<h4 style="color:red" ;><b>'
     part_3 = '</b></h4><br><input type="text" name="'
     part_4 = '">'
-    part_5 = '<button type="submit" value=Submit>Submit</button></form>'
+    part_5 = '<br><br><button type="submit" value=Submit>Submit</button></form>'
     part_6 = '</body></html>'
     h_file = open("templates/" + DYNAMIC_HTML, "w")
     h_file.write(part_0)
@@ -61,6 +68,8 @@ def generate_template(config):
     h_file.write(part_5)
     h_file.write(part_6)
     h_file.close()
+
+
 
 
 if __name__ == '__main__':
