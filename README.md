@@ -1,8 +1,8 @@
-This is a quiz application implemented using flask , json and Pymongo.
+This is a web based quiz application implemented using flask and mongodb.
 
 
 app.py : 
-	It generates the "home.html" template. The performance is evaluated and displayed in the "end.html" template. 
+	flask app is initialised here. It generates the "home.html" template dynamically using config file. The performance is evaluated and displayed in the "end.html" template. 
 
 home.html : 
 	This displays the quiz.

@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 from flask_pymongo import PyMongo
 
 CONFIG = {}
-WRONG_ANS =  []
+WRONG_ANS = []
 COUNT = 0
 DYNAMIC_HTML = "home.html"
 
@@ -12,9 +12,10 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://127.0.0.1:27017/test_database"
 mongo = PyMongo(app)
 
+
 @app.route("/")
 def home_page():
-    global WRONG_ANS ,COUNT
+    global WRONG_ANS, COUNT
     WRONG_ANS = []
     COUNT = 0
     return render_template(DYNAMIC_HTML)
@@ -26,11 +27,11 @@ def evaluate():
         validate(x[0], x[1])
     print("count - ", COUNT)
     print("wrong ans - ", WRONG_ANS)
-    return render_template('end.html', count = COUNT , wrong = WRONG_ANS)
+    return render_template('end.html', count=COUNT, wrong=WRONG_ANS)
 
 
 def validate(key, value):
-    global WRONG_ANS , COUNT
+    global WRONG_ANS, COUNT
     keys = key.split("_")
     query = copy.deepcopy(CONFIG[keys[0]]["query"])
     var = CONFIG[keys[0]]["questions"][keys[1]]["variable"]
@@ -44,10 +45,9 @@ def validate(key, value):
     for x in db:
         if x[req] == value:
             COUNT = COUNT + 1
-        else :
+        else:
             wrong = (question, x[req], value)
             WRONG_ANS = WRONG_ANS + [wrong]
-
 
 
 def generate_template(config):
@@ -68,8 +68,6 @@ def generate_template(config):
     h_file.write(part_5)
     h_file.write(part_6)
     h_file.close()
-
-
 
 
 if __name__ == '__main__':
