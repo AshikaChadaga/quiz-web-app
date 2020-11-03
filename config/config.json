@@ -6,12 +6,12 @@
     "questions": {
       "1": {
         "Q": "what is the book written by Mike",
-        "variable": "mike",
+        "variable": "mike's book name",
         "required_field": "book"
       },
       "2": {
         "Q": "what is the book written by Ashika",
-        "variable": "ashika",
+        "variable": "ashika's book name",
         "required_field": "book"
       }
     }
